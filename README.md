@@ -58,13 +58,15 @@ python3 -m http.server 8777
 
 Then open `http://localhost:8777`. Or just open `index.html` directly — no server required for basic use.
 
-## Structure
+## Architecture
+
+![Architecture](docs/architecture.svg)
 
 ```
-index.html     markup shell
-css/app.css    all styles
-js/app.js      all logic (~2100 lines)
-assets/icons   skill icons for the game card layout
+index.html        markup shell
+css/app.css       all styles
+js/app.js         all logic (~2100 lines)
+assets/icons/     skill icons for the game card layout
 ```
 
 State saves automatically to `localStorage`.
