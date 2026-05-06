@@ -2208,6 +2208,11 @@ document.getElementById('btn-new').addEventListener('click', newDiagram);
 document.getElementById('btn-auto-layout').addEventListener('click', autoLayout);
 document.getElementById('btn-save-json').addEventListener('click', saveJSON);
 document.getElementById('btn-export-md').addEventListener('click', exportMarkdown);
+document.getElementById('btn-share').addEventListener('click', () => {
+  // Use a mock roadmap ID for now - in a real implementation this would come from the current loaded roadmap
+  const roadmapId = null; // Will be set when roadmaps are loaded via Convex
+  showShareModal(roadmapId);
+});
 
 document.getElementById('btn-load-json').addEventListener('click', () => {
   document.getElementById('load-json-input').click();

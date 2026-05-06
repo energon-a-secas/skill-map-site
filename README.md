@@ -1,82 +1,157 @@
-<div align="center">
-
 # Skill Roadmap Builder
 
-Map skills, milestones, and learning paths as a visual grid with typed connections and dependency locking. No install, no build step, no dependencies.
+A gamified personal skill tracker with visual roadmaps, XP/leveling, streaks, achievements, and sharing.
 
-[![Live][badge-site]][url-site]
-[![HTML5][badge-html]][url-html]
-[![CSS3][badge-css]][url-css]
-[![JavaScript][badge-js]][url-js]
-[![Claude Code][badge-claude]][url-claude]
-[![License][badge-license]](LICENSE)
+## Live Demo
 
-[badge-site]:    https://img.shields.io/badge/live_site-0063e5?style=for-the-badge&logo=googlechrome&logoColor=white
-[badge-html]:    https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white
-[badge-css]:     https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white
-[badge-js]:      https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
-[badge-claude]:  https://img.shields.io/badge/Claude_Code-CC785C?style=for-the-badge&logo=anthropic&logoColor=white
-[badge-license]: https://img.shields.io/badge/license-MIT-404040?style=for-the-badge
+**https://skillmap.neorgon.com**
 
-[url-site]:   https://skillmap.neorgon.com/
-[url-html]:   #
-[url-css]:    #
-[url-js]:     #
-[url-claude]: https://claude.ai/code
+## Features
 
-</div>
+### 🎮 Gamification
+- **XP & Leveling**: Gain XP by practicing skills, level up from 1-100
+- **Streak Tracking**: Track daily practice streaks with flame icons
+- **Achievement Badges**: 30+ badges across 5 categories
+- **Visual Progress**: XP bars, level badges, and celebration animations
 
----
+### 🗺️ Visual Roadmaps
+- **Drag & Drop**: Arrange skills in columns and lanes
+- **Typed Connections**: Connect skills with relationship types (blocks, informs, enhances, enables, prepares)
+- **Color Coding**: Visualize skill categories with custom colors
+- **Dependency Locking**: Manually lock/unlock skills based on prerequisites
 
-A web app for building visual skill trees and learning roadmaps the way you actually think about them. Stages as columns, skills as cards, relationships as typed arrows. No install, no build step, no dependencies.
+### 🎨 Customization
+- **Icon Picker**: Choose from curated icons organized by category
+- **Admin Upload**: Upload custom icons (admin only)
+- **Share Links**: Generate read-only share links for your roadmaps
+- **Export**: Download as JSON or Markdown
 
-## The idea
+### 👤 User Accounts
+- **Simple Auth**: Username/password (first user becomes admin)
+- **Cloud Sync**: All data saved to Convex backend
+- **Cross-device**: Access from anywhere
 
-Most roadmap tools are either too rigid or too freeform. This one sits in the middle. You get structure (columns, lanes, ordered nodes) with enough flexibility to model anything from a learning path to a game skill tree. Connections between nodes carry meaning — whether something *requires*, *enables*, *relates to*, or *prepares* for something else — and the diagram updates visually when prerequisites aren't met.
+## Tech Stack
 
-## What you can do
+- **Frontend**: Vanilla JavaScript (ES modules), no build step
+- **Backend**: Convex serverless (real-time sync)
+- **Storage**: Convex file storage for icons
+- **Hosting**: Static HTML + Cloudflare Pages
 
-**Columns and lanes** give you a grid to think in. Columns are stages or phases. Lanes inside a column let you run parallel tracks side by side without mixing them up.
-
-**Nodes** are the skills, tasks, or milestones. Each one can have a color (to signal status), markers (to flag priority or state), a row span (if it needs more visual weight), and an icon for the game-style card layout.
-
-**Connections** between nodes are typed. Requires, Relates, Enhances, Enables, Prepares — each has its own color and line style so you can read the diagram at a glance.
-
-**Locking** works two ways. Nodes with unmet upstream requirements are automatically dimmed with a red border. You can also lock any node manually to mark it as blocked regardless of what's connected.
-
-**Drag** to reorder nodes within a lane, or move them across lanes and columns entirely.
-
-**Templates** to start from — a default skill roadmap or a game-style tiered skill tree with icon cards.
-
-**Export** as JSON to save and reload, or as Markdown to share or document.
-
-## Running it
+## Quick Start
 
 ```bash
-python3 -m http.server 8777
+# Install dependencies
+npm install
+
+# Run Convex dev server (terminal 1)
+make dev
+
+# Run HTTP server (terminal 2)
+make serve
+
+# Open http://localhost:8777
 ```
 
-Then open `http://localhost:8777`. Or just open `index.html` directly — no server required for basic use.
+## Console Commands
 
-## Architecture
+```bash
+# Deploy to production
+make deploy
 
-![Architecture](docs/architecture.svg)
+# Create share link
+npx convex run shareLinks:create '{"username": "admin", "roadmapId": "ROADMAP_ID"}'
+
+# Seed badges (run once)
+npx convex run seedBadges:seedBadges
+
+# Seed icon categories
+npx convex run icons:seedPresetCategories
+```
+
+## Project Structure
 
 ```
-index.html        markup shell
-css/app.css       all styles
-js/app.js         all logic (~2100 lines)
-assets/icons/     skill icons for the game card layout
+skill-roadmap-site/
+├── index.html              # Main app
+├── css/
+│   └── style.css           # All styles
+├── js/                     # ES modules
+│   ├── app.js              # Main app logic
+│   ├── state.js            # State management
+│   ├── render.js           # DOM rendering
+│   ├── gamification.js     # XP, levels, badges
+│   ├── sessions.js         # Streak tracking
+│   ├── icons.js            # Icon management
+│   ├── sharing.js          # Share links
+│   ├── animations.js       # Celebrations
+│   └── utils.js            # Helpers
+├── convex/                 # Backend functions
+│   ├── auth.ts             # Authentication
+│   ├── roadmaps.ts         # Roadmap CRUD
+│   ├── gamification.ts     # XP & badges
+│   ├── icons.ts            # Icon upload
+│   ├── shareLinks.ts       # Sharing
+│   └── schema.ts           # Database schema
+├── package.json
+└── Makefile
 ```
 
-State saves automatically to `localStorage`.
+## API Reference
 
-## Live
+### Gamification
+```javascript
+// Gain XP
+await gainXP('n-1', 50, 'Practiced for 30min');
 
-→ [skillmap.neorgon.com](https://skillmap.neorgon.com/)
+// Get user badges
+const result = await convex.query(api.gamification.getUserBadges, {
+  username: auth.username
+});
 
----
+// Check badge progress
+const result = await convex.query(api.gamification.getBadgeProgress, {
+  username: auth.username
+});
+```
 
-<div align="center">
-  <sub>Part of <a href="https://neorgon.com">Neorgon</a></sub>
-</div>
+### Sharing
+```javascript
+// Create share link
+const result = await convex.mutation(api.shareLinks.create, {
+  username: auth.username,
+  roadmapId: 'j57ca6ybjd3d5k8mxtb088pax582zwpr'
+});
+
+// Load shared roadmap
+const result = await convex.query(api.shareLinks.getByToken, {
+  token: '2a7yemdbpypepxr1usg1ei'
+});
+```
+
+## Development
+
+### Adding New Badges
+```bash
+npx convex run seedBadges:addBadge --args='{
+  "name": "My Badge",
+  "description": "Custom achievement description",
+  "icon": "🏆",
+  "tier": "gold",
+  "requirementType": "skill_level",
+  "requirementValue": 50
+}'
+```
+
+### Adding New Icon Categories
+```javascript
+// In convex/icons.ts, add to categories array
+const categories = [
+  // ... existing categories
+  { name: "My Category", description: "Custom category" },
+];
+```
+
+## License
+
+MIT
