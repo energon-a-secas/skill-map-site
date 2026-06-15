@@ -3012,10 +3012,7 @@ confetti:nth-child(3n) { background: var(--purple-bright); }
 .level-up-text {
   font-size: 24px;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent-bright);
   margin: 0 0 8px 0;
 }
 
