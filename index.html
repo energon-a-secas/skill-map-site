@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; font-src 'self' cdnjs.cloudflare.com; img-src 'self' data: blob: https://pub-b597cd281a384f98a47e1f043a6c4160.r2.dev; connect-src 'self' https://plausible.io; frame-ancestors 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com https://pub-b597cd281a384f98a47e1f043a6c4160.r2.dev; font-src 'self' cdnjs.cloudflare.com; img-src 'self' data: blob: https://pub-b597cd281a384f98a47e1f043a6c4160.r2.dev; connect-src 'self' https://plausible.io; frame-ancestors 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -32,6 +32,12 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="css/style.css" />
+<!-- Neorgon Header Kit (vendored; ?header=live swaps CSS to CDN) -->
+<script>(function(){var m=location.search.match(/[?&]theme=([\w-]+)/)||document.cookie.match(/(?:^|;\s*)neo_theme=([\w-]+)/);if(m&&m[1]!=='default')document.documentElement.dataset.theme=decodeURIComponent(m[1]);})();</script>
+<link rel="stylesheet" href="css/neorgon-header.css" />
+<link rel="stylesheet" href="css/neorgon-themes.css" />
+<link rel="stylesheet" href="https://pub-b597cd281a384f98a47e1f043a6c4160.r2.dev/v1.0.0/header/season.css" />
+<script defer src="js/neorgon-header.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -50,51 +56,52 @@
 <div id="app">
 
   <a class="skip-link" href="#body">Skip to content</a>
-  <!-- HEADER -->
-  <header id="header">
-    <div id="header-logo">
+  <!-- HEADER (Neorgon Header Kit contract) -->
+  <header class="header-bar" data-header-mode="app">
+    <div class="header-logo">
       <a href="https://neorgon.com/" target="_blank" rel="noopener noreferrer"><img src="energon-classic-logo.png" class="header-logo-img" alt="Neorgon"></a>
-      <h1 id="app-brand"><span>Skill</span><span>Map</span></h1>
+      <a href="./" class="header-title-link"><h1>Skill Map</h1></a>
     </div>
-    <button class="btn btn-ghost" id="btn-new" title="New diagram">
-      <i class="fa-regular fa-file"></i>
-      New
-    </button>
-    <div class="header-sep"></div>
-    <button class="btn btn-ghost" id="btn-auto-layout" title="Auto-align nodes to their connections">
-      <i class="fa-solid fa-align-center"></i>
-      Auto-align
-    </button>
-    <div class="header-sep"></div>
-    <button class="btn btn-ghost" id="btn-save-json" title="Export diagram as JSON file">
-      <i class="fa-solid fa-file-export"></i>
-      Export JSON
-    </button>
-    <button class="btn btn-ghost" id="btn-load-json" title="Import diagram from JSON file">
-      <i class="fa-solid fa-file-import"></i>
-      Import JSON
-    </button>
-    <input type="file" id="load-json-input" accept=".json" aria-hidden="true" />
-    <div class="header-spacer"></div>
-    <div id="user-level-indicator" style="display: none;">
-      <div class="level-badge">
-        <span class="level-number">1</span>
+    <div class="header-right">
+      <div id="user-level-indicator" style="display: none;">
+        <div class="level-badge">
+          <span class="level-number">1</span>
+        </div>
+        <div class="user-xp-bar">
+          <div class="user-xp-fill"></div>
+        </div>
       </div>
-      <div class="user-xp-bar">
-        <div class="user-xp-fill"></div>
+      <div class="header-actions">
+        <button class="btn btn-ghost" id="btn-new" title="New diagram">
+          <i class="fa-regular fa-file"></i>
+          New
+        </button>
+        <button class="btn btn-ghost" id="btn-auto-layout" title="Auto-align nodes to their connections">
+          <i class="fa-solid fa-align-center"></i>
+          Auto-align
+        </button>
+        <button class="btn btn-ghost" id="btn-save-json" title="Export diagram as JSON file">
+          <i class="fa-solid fa-file-export"></i>
+          Export JSON
+        </button>
+        <button class="btn btn-ghost" id="btn-load-json" title="Import diagram from JSON file">
+          <i class="fa-solid fa-file-import"></i>
+          Import JSON
+        </button>
+        <input type="file" id="load-json-input" accept=".json" aria-hidden="true" />
+        <button class="btn btn-primary" id="btn-export-md" title="Export as Markdown">
+          <i class="fa-solid fa-file-arrow-down"></i>
+          Export MD
+        </button>
+        <button class="btn btn-secondary" id="btn-share" data-keep-mobile title="Share roadmap">
+          <i class="fa-solid fa-share"></i>
+          Share
+        </button>
       </div>
+      <a href="https://neorgon.com/" class="header-home" title="neorgon.com" aria-label="Neorgon home">
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </a>
     </div>
-    <button class="btn btn-primary" id="btn-export-md" title="Export as Markdown">
-      <i class="fa-solid fa-file-arrow-down"></i>
-      Export MD
-    </button>
-    <button class="btn btn-secondary" id="btn-share" title="Share roadmap">
-      <i class="fa-solid fa-share"></i>
-      Share
-    </button>
-    <a href="https://neorgon.com/" class="header-home" title="neorgon.com" aria-label="Neorgon home">
-      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-    </a>
   </header>
 
   <!-- BODY -->

@@ -637,7 +637,8 @@ export function renderUserLevel() {
 
   if (!auth.isAuthenticated) return;
 
-  const header = document.getElementById('header');
+  const header = document.querySelector('.header-bar');
+  if (!header) return;
   const indicator = document.createElement('div');
   indicator.className = 'user-level-indicator';
   indicator.id = 'user-level-indicator';
@@ -657,7 +658,7 @@ export function renderUserLevel() {
     </div>
   `;
 
-  header.insertBefore(indicator, document.querySelector('.header-spacer'));
+  header.insertBefore(indicator, header.querySelector('.header-right'));
 }
 
 // ===== Sync Functions =====
