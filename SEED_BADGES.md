@@ -6,7 +6,7 @@ After deploying the Convex backend, you need to seed the badges table with achie
 
 ### Method 1: Run Seeding Function (Recommended)
 
-Run this command in the skill-roadmap-site directory:
+Run this command in the skill-map-site directory:
 
 ```bash
 npx convex run seedBadges:seedBadges

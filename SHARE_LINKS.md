@@ -166,7 +166,7 @@ document.getElementById('btn-share').addEventListener('click', () => {
 
 Test share functionality:
 ```bash
-cd skill-roadmap-site
+cd skill-map-site
 make serve
 # Open http://localhost:8777/test-share.html
 ```

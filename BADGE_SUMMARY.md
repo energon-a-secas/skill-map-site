@@ -128,7 +128,7 @@
 Run once after initial deployment:
 
 ```bash
-cd skill-roadmap-site
+cd skill-map-site
 npx convex run seedBadges:seedBadges
 ```
 

@@ -1,5 +1,5 @@
 {
-  "name": "skill-roadmap-site",
+  "name": "skill-map-site",
   "private": true,
   "dependencies": {
     "convex": "^1.21.0"

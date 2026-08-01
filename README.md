@@ -72,7 +72,7 @@ npx convex run icons:seedPresetCategories
 ## Project Structure
 
 ```
-skill-roadmap-site/
+skill-map-site/
 ├── index.html              # Main app
 ├── css/
 │   └── style.css           # All styles
