@@ -44,7 +44,7 @@ Run `make dev` and `make serve` in separate terminals for local development.
 **Current structure (pre-refactor):**
 ```
 site/
-├── index.html        # HTML shell (~160 lines) — structure only
+├── index.html        # HTML shell (~160 lines), structure only
 ├── css/
 │   └── style.css       # All styles (~1070 lines)
 ├── js/
